@@ -1,0 +1,50 @@
+version: '2'
+services:
+  app:
+    image: 1drop/invoiceninja:4.0.1
+    environment:
+      APP_KEY: SomeRandomStringSomeRandomString
+      APP_URL: http://ninja.docker
+      APP_LOCALE: de
+      DB_HOST: mysql
+      DB_USERNAME: root
+      DB_PASSWORD: ninja
+      DB_DATABASE: ninja
+      VIRTUAL_HOST: ninja.docker
+      VIRTUAL_PORT: "80"
+    depends_on:
+      - mysql
+    labels:
+      rap.host: ninja.docker
+      rap.port: "80"
+      rap.le_host: ninja.docker
+      rap.client_max_body_size: 512M
+
+  mysql:
+    image: mysql
+    volumes:
+      - database:/var/lib/mysql
+    ports:
+      - 13306:3306
+    environment:
+      MYSQL_DATABASE: ninja
+      MYSQL_ROOT_PASSWORD: ninja
+
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin
+  #   depends_on:
+  #     - mysql
+  #   environment:
+  #     PMA_HOST: mysql
+  #     MYSQL_DATABASE: ninja
+  #     MYSQL_ROOT_PASSWORD: ninja
+  #     PMA_ABSOLUTE_URI: http://pma.ninja.docker/
+  #   labels:
+  #     - rap.host=pma.ninja.docker
+  #     - rap.le_host=pma.ninja.docker
+  #     - rap.port=80
+  #     - rap.client_max_body_size=2G
+
+volumes:
+  database:
+    driver: local
