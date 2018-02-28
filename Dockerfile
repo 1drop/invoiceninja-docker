@@ -19,7 +19,7 @@ RUN apt-install php7.0-gmp phantomjs
 # DOWNLOAD AND INSTALL INVOICE NINJA
 #####
 
-ENV INVOICENINJA_VERSION 4.0.1
+ENV INVOICENINJA_VERSION 4.2.0
 
 RUN composer self-update \
     && curl -o invoiceninja.tar.gz -SL https://github.com/invoiceninja/invoiceninja/archive/v${INVOICENINJA_VERSION}.tar.gz \
